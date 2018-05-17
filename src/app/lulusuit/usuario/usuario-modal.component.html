@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <span *ngIf="create" >Novo Usuário</span>
+  <span *ngIf="!create" >Editar Usuário</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal">
+    <div class="form-group row">
+      <label for="name" class="col-sm-3 form-control-label">Nome</label>
+      <div class="col-sm-9">
+        <input id="name" name="name" [(ngModel)]="usuario.name" type="text" autofocus [required]="true" #name="ngModel"
+                placeholder="Nome Completo" class="form-control" [class.form-control-danger]="name.invalid && name.touched" />
+        <small class="form-text error" *ngIf="name.invalid && name.touched && name.errors?.required">
+          Nome é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="username" class="col-sm-3 form-control-label">Login</label>
+      <div class="col-sm-9">
+        <input id="username" name="username" [(ngModel)]="usuario.username" type="text" placeholder="Login" class="form-control"
+                [required]="true" #username="ngModel" [class.form-control-danger]="username.invalid && username.touched" />
+        <small class="form-text error" *ngIf="username.invalid && username.touched && username.errors?.required">
+          Login é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password" class="col-sm-3 form-control-label">Senha</label>
+      <div class="col-sm-9">
+        <input id="password" name="password" [(ngModel)]="usuario.password" type="password" placeholder="Senha" class="form-control"
+                [required]="create" #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" />
+        <small class="form-text error" *ngIf="create && password.invalid && password.touched && password.errors?.required">
+          Senha é obrigatório!
+        </small>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="authority" class="col-sm-3 form-control-label">Perfil</label>
+      <div class="col-sm-9">
+        <select id="authority" name="authority" [(ngModel)]="usuario.authority" class="form-control">
+          <option value="ROLE_USER">Usuário Básico</option>
+          <option value="ROLE_ADMIN">Usuário Administrador</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="avatar" class="col-sm-3 form-control-label">Avatar</label>
+      <div class="col-sm-9">
+        <input id="avatar" type="file" accept="image/*" name="image" class="form-control" (change)="fileChange($event)" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="enabled" class="col-sm-3 form-control-label"></label>
+      <div class="col-sm-9">
+        <nb-checkbox id="enabled" name="enabled" [(ngModel)]="usuario.enabled">Habilitado?</nb-checkbox>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-md btn-primary" (click)="SaveAndCloseModal()">Salvar</button>
+</div>
